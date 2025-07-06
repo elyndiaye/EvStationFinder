@@ -15,9 +15,7 @@ class HomeViewModel: ObservableObject {
     @Published var errorMessage : String?
     @Published var showAlert =  false
     @Published var zipCode: String = Foundation.UserDefaults.standard.string(forKey: "LastZipCode") ?? ""
-
     
-    let apiKey : String = "YOUR_API_KEY"
     
     private let service : NetworkServiceProtocol
     
@@ -26,9 +24,16 @@ class HomeViewModel: ObservableObject {
         self.service = service
     }
     
-    func loadStations(zipCode : String) async {
+    func loadStations() async {
         guard !zipCode.isEmpty else {
-            self.errorMessage = "Zip code is required"
+            showError(message: HomeStrings.zipCodeIsRequired)
+            zipCode = ""
+            return
+        }
+        
+        guard zipCode.count == 5 else {
+            showError(message: HomeStrings.zipCodeNeedToBeValid)
+            zipCode = ""
             return
         }
         
@@ -37,17 +42,19 @@ class HomeViewModel: ObservableObject {
         
         self.isLoading = true
         
-             
-            let result = await service.fetchStationList(zipCode: zipCode)
-            switch result {
-            case .success(let stations):
-                self.stations = stations
-                if stations.isEmpty {
-                    showError(message: "Nenhuma estação encontrada para esse CEP.")
-                           }
-            case .failure(let error):
-                self.errorMessage = error.localizedDescription
+        let result = await service.fetchStationList(zipCode: zipCode)
+        
+        isLoading = false
+        
+        switch result {
+        case .success(let stations):
+            self.stations = stations
+            if stations.isEmpty {
+                showError(message: HomeStrings.noStatitionsFoundZipCode)
             }
+        case .failure(let error):
+            showError(message:  error.message)
+        }
         
     }
     

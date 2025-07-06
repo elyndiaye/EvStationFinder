@@ -15,7 +15,7 @@ struct ContentView: View {
             ZStack {
                 VStack {
                     HStack {
-                        TextField("Type the U.S zip Code", text: $viewModel.zipCode)
+                        TextField(HomeStrings.typeZipCode, text: $viewModel.zipCode)
                             .padding(.leading)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
@@ -33,11 +33,11 @@ struct ContentView: View {
                     }
                     .padding(.horizontal)
                     if viewModel.isLoading {
-                        ProgressView("Loading stations...")
+                        ProgressView(HomeStrings.loadingStations)
                             .padding()
                     } else if viewModel.stations.isEmpty {
                         Spacer()
-                        Text("Nenhuma estação carregada")
+                        Text(HomeStrings.noStationsLoaded)
                             .foregroundColor(.secondary)
                         Spacer()
                     }
@@ -64,7 +64,10 @@ struct ContentView: View {
             }
             .navigationTitle("EV Station Finder")
         }.alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Attention"), message: Text(viewModel.errorMessage ?? "Try again later"), dismissButton: .default(Text("OK"))) }
+            Alert(title: Text(HomeStrings.attention),
+                  message: Text(viewModel.errorMessage ?? "Try again later"),
+                  dismissButton: .default(Text("OK")))
+        }
     }
 }
 

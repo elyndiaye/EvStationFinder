@@ -21,13 +21,13 @@ struct StationDetailView: View {
                 .fontWeight(.bold)
             
             VStack(alignment: .leading, spacing: Spacing.space2) {
-                Text(" Street Address: \(station.street_address)")
+                Text("Street Address: \(station.street_address)")
                     .font(.subheadline)
-                Text(station.city)
+                Text("City: \(station.city)")
                     .font(.subheadline)
-                Text(station.state)
+                Text("State: \(station.state)")
                     .font(.subheadline)
-                Text(station.zip)
+                Text("Zip: \(station.zip)")
                     .font(.subheadline)
             }
             .padding(.top, 10)
@@ -35,14 +35,14 @@ struct StationDetailView: View {
             Button(action: {
                 openAppleMaps()
             }) {
-                Label("Open in Maps", systemImage: "map")
+                Label(StationDetailStrings.openIMaps, systemImage: "map")
                     .foregroundColor(.blue)
             }
             .padding(.top, Spacing.space4)
             Spacer()
         }
         .padding()
-        .navigationTitle("Station Details")
+        .navigationTitle(StationDetailStrings.title)
         .navigationBarTitleDisplayMode(.inline)
     }
     
