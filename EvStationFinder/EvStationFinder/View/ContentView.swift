@@ -44,7 +44,7 @@ struct ContentView: View {
                     else {
                         List(viewModel.stations) { station in
                             NavigationLink(destination: StationDetailView(station: station)) {
-                                VStack(alignment: .leading, spacing: 4) {
+                                VStack(alignment: .leading, spacing: Spacing.space0) {
                                     Text(station.station_name).font(.headline)
                                     Text("\(station.street_address), \(station.city) - \(station.state), \(station.zip)")
                                         .font(.subheadline)
@@ -52,8 +52,8 @@ struct ContentView: View {
                                 .padding()
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color(.secondarySystemBackground))
-                                .cornerRadius(8)
-                                .padding(.vertical, 4)
+                                .cornerRadius(Spacing.space1)
+                                .padding(.vertical, Spacing.space0)
                                 
                             }
                         }
