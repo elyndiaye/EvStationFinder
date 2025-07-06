@@ -20,7 +20,7 @@ struct ContentView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
                         
-                        Button(action: {                        
+                        Button(action: {
                             Task {
                                 await viewModel.loadStations()
                             }
@@ -32,7 +32,10 @@ struct ContentView: View {
                         .buttonStyle(.borderedProminent)
                     }
                     .padding(.horizontal)
-                    if viewModel.stations.isEmpty {
+                    if viewModel.isLoading {
+                        ProgressView("Loading stations...")
+                            .padding()
+                    } else if viewModel.stations.isEmpty {
                         Spacer()
                         Text("Nenhuma estação carregada")
                             .foregroundColor(.secondary)
@@ -40,17 +43,19 @@ struct ContentView: View {
                     }
                     else {
                         List(viewModel.stations) { station in
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(station.station_name).font(.headline)
-                                Text("\(station.street_address), \(station.city) - \(station.state), \(station.zip)")
-                                    .font(.subheadline)
+                            NavigationLink(destination: StationDetailView(station: station)) {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(station.station_name).font(.headline)
+                                    Text("\(station.street_address), \(station.city) - \(station.state), \(station.zip)")
+                                        .font(.subheadline)
+                                }
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(8)
+                                .padding(.vertical, 4)
+                                
                             }
-                            .padding()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(.secondarySystemBackground))
-                            .cornerRadius(8)
-                            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-                            .padding(.vertical, 4)
                         }
                         .listStyle(.plain)
                     }
@@ -59,7 +64,7 @@ struct ContentView: View {
             }
             .navigationTitle("EV Station Finder")
         }.alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Warning"), message: Text(viewModel.errorMessage ?? "Try again later"), dismissButton: .default(Text("OK"))) }
+            Alert(title: Text("Attention"), message: Text(viewModel.errorMessage ?? "Try again later"), dismissButton: .default(Text("OK"))) }
     }
 }
 
