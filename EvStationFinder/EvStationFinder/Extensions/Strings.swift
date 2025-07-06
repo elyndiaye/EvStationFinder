@@ -15,7 +15,7 @@ enum HomeStrings {
     static let attention = "Attention"
     static let zipCodeIsRequired = "Zip code is required"
     static let zipCodeNeedToBeValid = "Zip code need to be valid."
-    static let noStatitionsFoundZipCode = "No stations found for this zip code"
+    static let noStationsFoundZipCode = "No stations found for this zip code"
     static let stationNotFound = "Station not found"
     static let somethingWrong = "Ops! Somethin wrong..."
     static let tryAgainLater = "Try again later!"

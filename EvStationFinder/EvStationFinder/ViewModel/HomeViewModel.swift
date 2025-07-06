@@ -50,7 +50,7 @@ class HomeViewModel: ObservableObject {
         case .success(let stations):
             self.stations = stations
             if stations.isEmpty {
-                showError(message: HomeStrings.noStatitionsFoundZipCode)
+                showError(message: HomeStrings.noStationsFoundZipCode)
             }
         case .failure(let error):
             showError(message:  error.message)
