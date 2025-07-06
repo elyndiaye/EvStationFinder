@@ -13,9 +13,11 @@ struct EvStationResponse: Codable {
 
 struct EvStation: Codable, Identifiable {
     let id: Int
-      let station_name: String
-      let street_address: String
-      let city: String
-      let state: String
-      let zip: String
+    let station_name: String
+    let street_address: String
+    let city: String
+    let state: String
+    let zip: String
+    let latitude: Double
+    let longitude: Double
 }
