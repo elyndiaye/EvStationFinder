@@ -8,22 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel: HomeViewModel
     @State private var zipCode: String = ""
-    
-    let countryList = ["Brasil", "Estados Unidos", "Canadá", "França", "Alemanha"]
     
     var body: some View {
         NavigationView {
             ZStack {
                 VStack {
                     HStack {
-                        TextField("Type the zip Code", text: $zipCode)
+                        TextField("Type the U.S zip Code", text: $zipCode)
                             .padding(.leading)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                             .keyboardType(.numberPad)
 
                         Button(action: {
                             print("zip code: \(zipCode)")
+                            Task {
+                                               await viewModel.loadStations(zipCode: zipCode)
+                                           }
+                            
                         }) {
                             Image(systemName: "magnifyingglass")
                         }
@@ -32,10 +35,11 @@ struct ContentView: View {
                     }
                     .padding()
 
-                    List(countryList, id: \.self) { item in
+                    List(viewModel.stations) { station in
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(item).font(.headline)
-                            Text("Estação").font(.subheadline)
+                            Text(station.station_name).font(.headline)
+                            Text("\(station.street_address), \(station.city) - \(station.state), \(station.zip)")
+.font(.subheadline)
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -54,6 +58,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let service = NetworkService()
+    let viewModel = HomeViewModel(service: service)
+    ContentView(viewModel: viewModel)
 }
 
