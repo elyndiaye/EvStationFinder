@@ -14,7 +14,7 @@ A mobile application that allows users to find electric vehicle charging station
 
 ## 🛠️ Tools
 
-- Xcode 16.4
+- Xcode 16.2
 - Swift UI
 - MVVM / SOLID
 - User Defaults

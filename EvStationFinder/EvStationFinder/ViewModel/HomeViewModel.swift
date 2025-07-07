@@ -25,18 +25,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func loadStations() async {
-        guard !zipCode.isEmpty else {
-            showError(message: HomeStrings.zipCodeIsRequired)
-            zipCode = ""
-            return
-        }
-        
-        guard zipCode.count == 5 else {
-            showError(message: HomeStrings.zipCodeNeedToBeValid)
-            zipCode = ""
-            return
-        }
-        
+        guard isValidZipCode() else { return }
         
         UserDefaults.standard.set(zipCode, forKey: "LastZipCode")
         
@@ -46,17 +35,36 @@ class HomeViewModel: ObservableObject {
         
         isLoading = false
         
-        switch result {
-        case .success(let stations):
-            self.stations = stations
-            if stations.isEmpty {
-                showError(message: HomeStrings.noStationsFoundZipCode)
-            }
-        case .failure(let error):
-            showError(message:  error.message)
-        }
+        handleResult(result)
         
     }
+    
+    private func isValidZipCode() -> Bool {
+           if zipCode.isEmpty {
+               showError(message: HomeStrings.zipCodeIsRequired)
+               return false
+           }
+
+           if zipCode.count != 5 || Int(zipCode) == nil {
+               showError(message: HomeStrings.zipCodeNeedToBeValid)
+               return false
+           }
+
+           return true
+       }
+
+
+       private func handleResult(_ result: Result<[EvStation], ApiError>) {
+           switch result {
+           case .success(let stations):
+               self.stations = stations
+               if stations.isEmpty {
+                   showError(message: HomeStrings.noStationsFoundZipCode)
+               }
+           case .failure(let error):
+               showError(message: error.message)
+           }
+       }
     
     private func showError(message: String) {
         self.errorMessage = message
