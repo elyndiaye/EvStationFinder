@@ -18,12 +18,14 @@ A mobile application that allows users to find electric vehicle charging station
 - Xcode 16 or later
 - NREL API Key ([Get yours here](https://developer.nrel.gov/docs/api-key/))
 
-1. Clone the repository: git clone https://github.com/elyndiaye/EvStationFinder.git
+1. Clone the repository:
+- git clone https://github.com/elyndiaye/EvStationFinder.git
 2. Add your NREL API Key:
 - Open the project in Xcode.
 - Navigate to NetworkService.swift.
 - Replace <your_api_key_here> with your actual NREL API Key.
-3. Run: Build and run (Cmd + R)
+3. Run: 
+- Build and run (Cmd + R)
 
 
 ## 🛠️ Tools
@@ -39,7 +41,8 @@ A mobile application that allows users to find electric vehicle charging station
 
 ## Brief MVVM Architecture
 
-- Model: Structure of charging station data
+- Model: 
+  - Structure of charging station data
 - ViewModel:  
   - Handles business logic and API integration.  
   - Uses `@Published` properties for state changes.  
