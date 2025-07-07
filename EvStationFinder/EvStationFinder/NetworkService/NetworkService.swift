@@ -13,7 +13,6 @@ protocol NetworkServiceProtocol {
 
 
 class NetworkService: NetworkServiceProtocol {
-   // private let baseURL = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json"
     private let baseURL = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json"
     private let apiKey = "0ZF8mMP7vb8zqFdaX38tJ7X9JDkCxRTZbMut7uSk"
 
