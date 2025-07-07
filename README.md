@@ -19,7 +19,7 @@ A mobile application that allows users to find electric vehicle charging station
 - NREL API Key ([Get yours here](https://developer.nrel.gov/docs/api-key/))
 
 1. Clone the repository:
-- git clone https://github.com/elyndiaye/EvStationFinder.git
+ - git clone https://github.com/elyndiaye/EvStationFinder.git
 2. Add your NREL API Key:
 - Open the project in Xcode.
 - Navigate to NetworkService.swift.
